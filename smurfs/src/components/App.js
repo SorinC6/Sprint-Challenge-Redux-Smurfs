@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
-/*
- to wire this component up you're going to need a few things.
- I'll let you do this part on your own. 
- Just remember, `how do I `connect` my components to redux?`
- `How do I ensure that my component links the state to props?`
- */
+import SmurfList from './SmurfList';
+import HeaderImg from '../assets/header.jpg';
+import BackgroundImg from '../assets/background.jpg';
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">
+				<div className="header" style={{ backgroundImage: `url(${HeaderImg})` }}>
+					<h1>SMURFS! 2.0 W/ Redux</h1>
+				</div>
+
+				<div style={{backgroundImage: `url(${BackgroundImg})` , height:"500px"}}>
+					<SmurfList />
+				</div>
+			</div>
+		);
+	}
 }
 
 export default App;
