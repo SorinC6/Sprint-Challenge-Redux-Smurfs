@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSmurfs, addSmurf } from '../actions/index';
+import { getSmurfs, addSmurf, deleteSmurf } from '../actions/index';
 import Loader from 'react-loader-spinner';
 import Smurf from './Smurf';
 import AddSmurfForm from './AddSmurfForm';
@@ -9,18 +9,24 @@ class SmurfList extends Component {
 	componentDidMount() {
 		this.props.getSmurfs();
 	}
+
+	deleteSmurf = (id) => {
+      this.props.deleteSmurf(id)
+   };
 	render() {
 		console.log(this.props);
 		return (
-			<React.Fragment>
-				{this.props.isFetchingSmurfs && <Loader type="Puff" color="#00BFFF" height="100" width="100" />}
-				{this.props.error && <h1 style={{ color: 'red' }}>{this.props.error}</h1>}
-				{this.props.smurfs.map((smurf) => {
-					return <Smurf key={smurf.id} smurf={smurf} />;
-				})}
+			<div>
+				<div className="list-container">
+					{this.props.isFetchingSmurfs && <Loader type="Puff" color="#00BFFF" height="100" width="100" />}
+					{this.props.error && <h1 style={{ color: 'red' }}>{this.props.error}</h1>}
+					{this.props.smurfs.map((smurf) => {
+						return <Smurf key={smurf.id} smurf={smurf} deleteSmurf={this.deleteSmurf} />;
+					})}
+				</div>
 
 				<AddSmurfForm addSmurf={this.props.addSmurf} />
-			</React.Fragment>
+			</div>
 		);
 	}
 }
@@ -36,4 +42,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getSmurfs, addSmurf })(SmurfList);
+export default connect(mapStateToProps, { getSmurfs, addSmurf, deleteSmurf })(SmurfList);

@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import SmurfList from './SmurfList';
+import HeaderImg from '../assets/header.jpg';
+import BackgroundImg from '../assets/background.jpg';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<h1>SMURFS! 2.0 W/ Redux</h1>
-				<div>Welcome to your Redux version of Smurfs!</div>
-				<div>Start inside of your `src/index.js` file!</div>
-				<div>Have fun!</div>
+				<div className="header" style={{ backgroundImage: `url(${HeaderImg})` }}>
+					<h1>SMURFS! 2.0 W/ Redux</h1>
+				</div>
 
-				<SmurfList />
+				<div style={{backgroundImage: `url(${BackgroundImg})` , height:"500px"}}>
+					<SmurfList />
+				</div>
 			</div>
 		);
 	}

@@ -8,7 +8,10 @@ import {
 	FETCH_SMURF_START,
 	ADD_SMURF_START,
 	ADD_SMURF_SUCCESS,
-	ADD_SMURF_FAIL
+	ADD_SMURF_FAIL,
+	DELETE_SMURF_START,
+	DELETE_SMURF_SUCCESS,
+	Delete_SMURF_FAIL
 } from '../actions/index';
 
 //Your initial/default state for this project could *Although does not have to* look a lot like this
@@ -69,6 +72,26 @@ const smurfReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isAddingSmurf: false,
+				error: action.payload
+			};
+		//============== DELETE CASE ===============
+		case DELETE_SMURF_START:
+			return {
+				...state,
+				isDeletingSmurf: true,
+				error: null
+			};
+		case DELETE_SMURF_SUCCESS:
+			return {
+				...state,
+				isDeletingSmurf: false,
+				smurfs: action.payload,
+				error: null
+			};
+		case Delete_SMURF_FAIL:
+			return {
+				...state,
+				isDeletingSmurf: false,
 				error: action.payload
 			};
 		default:
