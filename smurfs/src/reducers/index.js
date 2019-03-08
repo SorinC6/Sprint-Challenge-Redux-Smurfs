@@ -2,7 +2,14 @@
   Be sure to import in all of the action types from `../actions`
 */
 
-import { FETCH_SMURF_FAIL, FETCH_SMURF_SUCCSESS, FETCH_SMURF_START } from '../actions/index';
+import {
+	FETCH_SMURF_FAIL,
+	FETCH_SMURF_SUCCSESS,
+	FETCH_SMURF_START,
+	ADD_SMURF_START,
+	ADD_SMURF_SUCCESS,
+	ADD_SMURF_FAIL
+} from '../actions/index';
 
 //Your initial/default state for this project could *Although does not have to* look a lot like this
 const initialState = {
@@ -24,6 +31,7 @@ const initialState = {
 
 const smurfReducer = (state = initialState, action) => {
 	switch (action.type) {
+		// ==============FETCH CASE ===================
 		case FETCH_SMURF_START:
 			return {
 				...state,
@@ -41,6 +49,26 @@ const smurfReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetchingSmurfs: false,
+				error: action.payload
+			};
+		// ================ADD CASE ================
+		case ADD_SMURF_START:
+			return {
+				...state,
+				isAddingSmurf: true,
+				error: null
+			};
+		case ADD_SMURF_SUCCESS:
+			return {
+				...state,
+				isAddingSmurf: false,
+				smurfs: action.payload,
+				error: null
+			};
+		case ADD_SMURF_FAIL:
+			return {
+				...state,
+				isAddingSmurf: false,
 				error: action.payload
 			};
 		default:

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSmurfs } from '../actions/index';
+import { getSmurfs, addSmurf } from '../actions/index';
+import Loader from 'react-loader-spinner';
+import Smurf from './Smurf';
+import AddSmurfForm from './AddSmurfForm';
 
 class SmurfList extends Component {
 	componentDidMount() {
@@ -10,12 +13,13 @@ class SmurfList extends Component {
 		console.log(this.props);
 		return (
 			<React.Fragment>
-				<p>Friend List</p>
-            {
-               this.props.smurfs.map( smurf=> {
-                  return <p>{smurf.name}</p>
-               })
-            }
+				{this.props.isFetchingSmurfs && <Loader type="Puff" color="#00BFFF" height="100" width="100" />}
+				{this.props.error && <h1 style={{ color: 'red' }}>{this.props.error}</h1>}
+				{this.props.smurfs.map((smurf) => {
+					return <Smurf key={smurf.id} smurf={smurf} />;
+				})}
+
+				<AddSmurfForm addSmurf={this.props.addSmurf} />
 			</React.Fragment>
 		);
 	}
@@ -23,8 +27,13 @@ class SmurfList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		smurfs: state.smurfs
+		smurfs: state.smurfs,
+		isFetchingSmurfs: state.isFetchingSmurfs,
+		isAddingSmurf: state.isAddingSmurf,
+		isUpdatingSmurf: state.isUpdatingSmurf,
+		isDeletingSmurf: state.isDeletingSmurf,
+		error: state.error
 	};
 };
 
-export default connect(mapStateToProps, { getSmurfs })(SmurfList);
+export default connect(mapStateToProps, { getSmurfs, addSmurf })(SmurfList);
